@@ -5,11 +5,11 @@ export default function listMaker(hslMain) {
 	const l = hslMain[2];
 
 	const lista = [];
-	let count = 10;
+	let count = 15;
 
-	lista.push([h, s, 10]);
+	lista.push([h, s, 15]);
 
-	const stepUp = (l - 10) / 5;
+	const stepUp = (l - 15) / 5;
 
 	for (let i = 0; i < 5; i++) {
 		count += stepUp;
