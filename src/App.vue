@@ -1,5 +1,5 @@
 <script setup>
-import Home from "./components/Home.vue";
+	import Home from "./components/Home.vue";
 </script>
 
 <template>
@@ -7,16 +7,16 @@ import Home from "./components/Home.vue";
 </template>
 
 <style>
-/* GLOBAL STYLES*/
-body {
-	font-family: "Inter", sans-serif;
-	font-size: 16px;
-	font-weight: 400;
-	line-height: 1.5;
-}
+	/* GLOBAL STYLES*/
+	body {
+		font-family: "Inter", sans-serif;
+		font-size: 16px;
+		font-weight: 400;
+		line-height: 1.5;
+	}
 
-p {
-	margin: 0;
-	padding: 0;
-}
+	p {
+		margin: 0;
+		padding: 0;
+	}
 </style>
