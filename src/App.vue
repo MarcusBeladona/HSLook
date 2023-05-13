@@ -1,5 +1,6 @@
 <script setup>
 	import Home from "./components/Home.vue";
+	document.title = "HSLook";
 </script>
 
 <template>
