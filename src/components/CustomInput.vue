@@ -1,8 +1,9 @@
 <script setup>
 	import { ref, computed } from "vue";
-	import { store } from "../assets/useStore";
+	import { useRecolorStore } from "../db/useRecolorStore.js";
+	const RecolorStore = useRecolorStore();
 
-	const input = ref(store.getHex());
+	const input = ref("65758B");
 
 	const isInputValid = computed(() => {
 		// Checks if input is from A to F or from 0 to 9
@@ -18,16 +19,14 @@
 		// Case: #AAABBB
 		if (input.value[0] === "#") {
 			input.value = input.value.slice(1);
-			store.setHex(input.value);
 		}
 		// Case: AAABBBc
 		if (input.value.length > 6) {
 			input.value = input.value.slice(0, 6);
-			store.setHex(input.value);
 		}
 		// Case: True
 		if (isInputValid.value) {
-			store.setHex(input.value);
+			RecolorStore.setHex(input.value);
 		}
 	};
 </script>

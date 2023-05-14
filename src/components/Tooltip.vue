@@ -1,47 +1,71 @@
-<template>
-	<p :style="{ backgroundColor: '#' + store.getTooltipText(), color: store.tooltipColor }" v-if="store.getTooltip()" ref="tooltip">#{{ store.getTooltipText() }}</p>
-</template>
-
 <script setup>
-	import { onMounted, ref } from "vue";
-	import { store } from "../assets/useStore";
+import { ref, watch } from "vue"
 
-	const tooltip = ref(null);
+const toast = ref("")
 
-	onMounted(() => {
-		document.addEventListener("mousemove", event => {
-			if (tooltip.value) {
-				tooltip.value.style.left = `${event.pageX + 16}px`;
-				tooltip.value.style.top = `${event.pageY + 16}px`;
-			}
-		});
-	});
+const props = defineProps({
+	item: {
+		type: Object,
+	},
+})
+
+watch(
+	() => props.item,
+	() => {
+		if (props.item.color) {
+			toast.value.style.opacity = "1"
+			toast.value.style.animation = "fadeIn 0.5s ease-in"
+
+			setTimeout(() => {
+				toast.value.style.opacity = "0"
+				toast.value.style.animation = "fadeOut 0.5s ease-out"
+			}, 2000)
+		}
+	}
+)
+
+document.addEventListener("mousemove", event => {
+	toast.value.style.left = `${event.pageX + 12}px`
+	toast.value.style.top = `${event.pageY + 16}px`
+})
 </script>
 
+<template>
+	<button :style="{ backgroundColor: item.color, color: item.contrast > 4.5 ? 'black' : 'white' }" ref="toast">
+		{{ item.color }}
+	</button>
+</template>
+
 <style scoped>
-	p {
-		position: absolute;
-		font-size: 12px;
-		top: 100%;
-		left: 100%;
-		padding: 0.5rem 0.875rem;
-		border-radius: 0px 8px 8px 8px;
-		animation: faseInOut 2s;
-		transition: opacity 0.3 ease;
-		border: solid rgba(0, 0, 0, 0.12) 1px;
+button {
+	opacity: 0;
+	z-index: 999;
+	width: fit-content;
+	padding: 0px 16px;
+	height: 36px;
+	position: absolute;
+	border-radius: 0px 8px 8px 8px;
+	transition: opacity 0.3s ease-in-out;
+	border: solid rgba(0, 0, 0, 0.04) 1px;
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
 	}
-	@keyframes faseInOut {
-		0% {
-			opacity: 0;
-		}
-		25% {
-			opacity: 1;
-		}
-		75% {
-			opacity: 1;
-		}
-		100% {
-			opacity: 0;
-		}
+
+	100% {
+		opacity: 1;
 	}
+}
+
+@keyframes fadeOut {
+	0% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+	}
+}
 </style>
